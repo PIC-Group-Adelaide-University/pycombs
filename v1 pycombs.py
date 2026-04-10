@@ -876,7 +876,7 @@ def run_gui():
 
     # ---- Figure ----
     fig = plt.figure(figsize=(13, 6))
-    fig.canvas.manager.set_window_title("pycombs v9 half SSFM")
+    fig.canvas.manager.set_window_title("pycombs v1.1 half SSFM")
     
     # make window open maximized
     manager = plt.get_current_fig_manager()
@@ -2131,10 +2131,12 @@ def run_gui():
         slew_GHzns = slew_DVns_to_GHzns(st.detuning_slew_rate, st.kappa_avg)
         
         hud.set_text(
-            f"t = {t_phys_ns:7.2f} ns\n"
-            f"Det. rate = {st.detuning_slew_rate:6.2f} DV/ns ({slew_GHzns:7.2f} GHz/ns)\n"
-            f"Pin = {Pnorm_now:6.2f} norm ({Pin_mW:7.2f} mW)\n"
-            f"⟨Pcav⟩ = {Pcav_mW:7.2f} mW (norm={Pcav_norm:6.2f})"
+            f"Simulation time (t_sim): {st.j * st.tal_step:7.2f} s"
+            f"Physical time (t_phys): {t_phys_ns:7.2f} ns\n"
+            f"Detuning (DV): {DV_now:6.2f} norm / {DV_to_detuning_GHz(DV_now, st.kappa_avg):7.2f} GHz\n"
+            f"Det. rate (DV_r): {st.detuning_slew_rate:6.2f} DV/ns / {slew_GHzns:7.2f} GHz/ns\n"
+            f"Pump power (P_in): {Pnorm_now:6.2f} norm / {Pin_mW:7.2f} mW\n"
+            f"Intracavity power (P_cav): {Pcav_norm:6.2f} norm / {Pcav_mW:7.2f} mW"
         )
 
         k = pow_i["i"] % Nkeep
