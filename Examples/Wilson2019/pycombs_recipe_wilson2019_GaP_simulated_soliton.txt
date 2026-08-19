@@ -1,0 +1,23 @@
+# Wilson et al. (2020) GaP-parameter simulated-soliton recipe
+# This is an LLE prediction using Wilson-like device parameters, not a
+# reproduction of an experimentally reported soliton state in that paper.
+
+# Begin blue-detuned with the 36 mW CW pump and quantum/noise seed enabled.
+noise on
+set noise_level 1.0
+set pump_power_rate_mw_per_ns 36.0
+set pump_power_mw 36.0
+set detuning_rate_dv_per_ns 1.0
+set detuning_dv -3.0
+apply_reset
+wait_steps 12000
+
+# Use the known Wilson/GaP trajectory: scan continuously to +8 at 1 DV/ns.
+set detuning_dv 8.0
+wait_ns 11.0
+
+# Hold the final operating point and export the resulting paper figures/data.
+set detuning_rate_dv_per_ns 0.0
+noise off
+wait_steps 50000
+save_all
