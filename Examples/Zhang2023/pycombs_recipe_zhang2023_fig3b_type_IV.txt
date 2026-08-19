@@ -1,0 +1,12 @@
+# Zhang et al. (2023), Fig. 3b — Type IV
+# Quadra-pass non-resonant EO phase modulation.
+# Dedicated Type-IV script starts from the matching zero-coupling preset:
+#   RF = 24.95 GHz, RF power = 28 dBm, Vpi = 7.56 V,
+#   four coherent PM passes -> beta ~= 4.20*pi.
+
+noise off
+eo off
+reset
+eo on
+wait_steps 10
+save_all

@@ -1,0 +1,12 @@
+# Zhang et al. (2023), Fig. 3b — Type II
+# Double-pass non-resonant EO phase modulation.
+# Dedicated Type-II script starts from the matching zero-coupling preset:
+#   RF = 24.95 GHz, RF power = 28 dBm, Vpi = 7.56 V,
+#   two coherent PM passes -> beta ~= 2.10*pi.
+
+noise off
+eo off
+reset
+eo on
+wait_steps 10
+save_all

@@ -1,0 +1,14 @@
+# Zhang et al. (2023), Fig. 3b — Type III
+# Ideal EO-comb representation of the Type-III device.
+# Dedicated Type-III script starts from the matching zero-coupling preset:
+#   RF = 24.95 GHz, RF power = 28 dBm, Vpi = 7.56 V,
+#   two coherent PM passes -> beta ~= 2.10*pi.
+# Type III is physically distinct from Type II in Zhang et al.; Pycombs models
+# their common ideal net phase-modulation index for this comparison.
+
+noise off
+eo off
+reset
+eo on
+wait_steps 10
+save_all

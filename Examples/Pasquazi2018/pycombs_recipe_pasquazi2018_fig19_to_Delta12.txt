@@ -1,0 +1,23 @@
+# Pasquazi et al., Physics Reports 729 (2018), Fig. 19
+# Stable-soliton target near normalized detuning Delta = 12.
+#
+# IMPORTANT:
+#   X = 12 is the normalized pump power.
+#   Delta = 12 is reached by a slow scan from Delta = -4; it is not imposed
+#   as an instantaneous jump after reset.
+
+# Reload the dedicated Fig. 19 preset and its noisy-vacuum initial condition.
+apply_reset
+
+# Hold the paper's normalized pump power.
+set pump_power_norm 12.0
+set pump_power_rate_norm_per_ns 100.0
+
+# Adiabatic scan rate. From -4 to +12 this takes about 53.3 microseconds.
+set detuning_rate_dv_per_ns 0.001
+
+# Absolute target detuning for the stable cavity-soliton profile in Fig. 19(c).
+set detuning_dv 12.0
+
+# Allow enough simulated time to complete the scan and settle at Delta = 12.
+wait_ns 60000
