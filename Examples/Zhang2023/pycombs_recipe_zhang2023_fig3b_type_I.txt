@@ -1,12 +1,12 @@
-# Zhang et al., Communications Physics 6, 17 (2023), Fig. 3b — Type I
+# Zhang et al. (2023), Fig. 3b — Type I
 # Single-pass non-resonant EO phase modulation.
-# Dedicated Zhang example script starts from the Type-I zero-coupling preset:
-#   CW at 1550.8 nm, RF = 24.95 GHz, RF power = 28 dBm,
-#   Vpi = 7.56 V, one coherent PM pass -> beta ~= 1.05*pi.
-#
-# The EO spectrum is generated analytically; no Kerr-cavity propagation is
-# required for this validation case.
+# Dedicated Type-I script starts from the matching zero-coupling preset:
+#   RF = 24.95 GHz, RF power = 28 dBm, Vpi = 7.56 V,
+#   one coherent PM pass -> beta ~= 1.05*pi.
 
+noise off
+eo off
+reset
 eo on
 wait_steps 10
 save_all
