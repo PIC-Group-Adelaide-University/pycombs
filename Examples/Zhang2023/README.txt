@@ -15,22 +15,22 @@ No filename editing is required.
 Matching pairs
 --------------
 Type I
-  pycombs_v12_Zhang2023_Fig3b_Type_I.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_I.py
   pycombs_recipe_zhang2023_fig3b_type_I.txt
   1 PM pass -> beta ~ 1.05*pi
 
 Type II
-  pycombs_v12_Zhang2023_Fig3b_Type_II.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_II.py
   pycombs_recipe_zhang2023_fig3b_type_II.txt
   2 PM passes -> beta ~ 2.10*pi
 
 Type III
-  pycombs_v12_Zhang2023_Fig3b_Type_III.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_III.py
   pycombs_recipe_zhang2023_fig3b_type_III.txt
   2 PM passes -> beta ~ 2.10*pi
 
 Type IV
-  pycombs_v12_Zhang2023_Fig3b_Type_IV.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_IV.py
   pycombs_recipe_zhang2023_fig3b_type_IV.txt
   4 PM passes -> beta ~ 4.20*pi
 
