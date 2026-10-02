@@ -3706,7 +3706,7 @@ def run_gui():
         cursor = add_textbox_top(key, lab, val, cursor, side="left") - lg
 
     cursor = add_sidebar_heading_top("Dispersion", cursor, multiline=False) - lg
-    cursor = add_textbox_top("dint", "Int. Dispersion File Upload", st.dint_file_path, cursor, side="left") - lg
+    cursor = add_textbox_top("dint", "Int. disp. (Dint)", st.dint_file_path, cursor, side="left") - lg
     cursor = add_textbox_top(
         "beta2", "Beta2 (GVD) [ps²/km]",
         "" if getattr(st, "beta2_gvd_ps2_per_km", None) is None else f"{st.beta2_gvd_ps2_per_km:.8g}",
