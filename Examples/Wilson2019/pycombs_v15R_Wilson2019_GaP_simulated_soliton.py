@@ -695,6 +695,127 @@ class ActivityLog:
             return False
 
 
+RECIPE_LANGUAGE_REFERENCE = r"""
+PYCOMBS RECIPE LANGUAGE REFERENCE
+=================================
+
+PyCOMBS recipes are plain-text, version-independent command files executed
+sequentially by RecipeRunner. This is the canonical embedded vocabulary for
+humans and AI assistants writing recipes from the source code. Lines beginning
+with # are comments; commas are treated as spaces. Commands/parameter names are
+case-insensitive.
+
+GENERAL FORMS
+    set <parameter> <value>
+    preset <startup_preset_name>
+    noise on|off
+    eo on|off
+    wait_ns <simulated_ns>
+    wait_steps <integer_solver_steps>
+    wait_detuning <target_DV> [tolerance_DV]
+    apply_live
+    apply_reset
+    save_plot | save_data | save_pulse | save_all
+    save_fig19_snapshot [label]
+
+OPERATING POINT
+    set detuning_dv <DV>
+        aliases: detuning, dv
+    set detuning_ghz <GHz>
+        alias: detuning_ghz_value
+    set detuning_rate_dv_per_ns <DV/ns>
+        aliases: detuning_slew_dv_per_ns, slew, detuning_slew, detuning_rate
+    set detuning_rate_ghz_per_ns <GHz/ns>
+        alias: detuning_slew_ghz_per_ns
+    set pump_power_norm <Pnorm>
+        aliases: power_norm, power, pnorm, p_norm
+    set pump_power_mw <mW>
+        alias: power_mw
+    set pump_power_rate_norm_per_ns <Pnorm/ns>
+        aliases: pump_slew_norm_per_ns, pump_power_slew_norm_per_ns,
+                 power_rate_norm_per_ns, power_slew, power_rate,
+                 power_slew_rate, pnorm_slew
+    set pump_power_rate_mw_per_ns <mW/ns>
+        alias: power_rate_mw_per_ns
+    set noise_level <scale>
+        alias: noise
+
+RESONATOR / MATERIAL / GRID
+    set number_modes <integer>       # alias: modes
+    set fsr_hz <Hz>                  # alias: fsr
+    set pump_wavelength_nm <nm>      # aliases: wavelength_nm, lambda_nm
+    set q <Q>                        # alias: q_factor
+    set aeff_um2 <um^2>              # alias: aeff
+    set n2_m2_per_w <m^2/W>          # alias: n2
+    set eta <coupling_fraction>
+
+DISPERSION AND PUMP SOURCES
+    set dint <embedded_name_or_file_path>
+        aliases: dispersion, dint_source
+    set beta2_ps2_per_km <ps^2/km>
+        aliases: beta2, beta2_gvd, beta2_gvd_ps2_per_km
+    set pump_source <embedded_name_or_file_path>
+        alias: pump
+
+EO COMB
+    set eo_rf_spacing_mu <integer_mode_spacing>
+    set eo_pm_rf_power_dbm <dBm>
+    set eo_pm_vpi_v <V>
+    set eo_num_pm <integer>
+    set eo_pm_loss_db <dB>
+    set eo_pm_phase_rad <rad>
+    set eo_im_enabled <0|1|on|off|true|false|yes|no>
+    set eo_im_rf_power_dbm <dBm>
+    set eo_im_vpi_v <V>
+    set eo_im_bias <GUI_value>
+    set eo_im_loss_db <dB>
+    set eo_im_phase_rad <rad>
+    set eo_rf_impedance_ohm <ohm>
+
+PRESETS / ACTIONS
+    preset <startup_preset_name>
+        aliases: startup_preset, load_preset
+    noise on|off
+    eo on|off
+    apply_live
+    apply_reset                    # alias: reset
+
+WAITS
+    wait_ns <simulated_ns>
+    wait_steps <integer>
+    wait_detuning <target_DV> [tolerance_DV]
+        alias: wait_dv; default tolerance = 0.002 DV
+
+SAVING
+    save_plot
+    save_data
+    save_pulse                    # alias: save_pump
+    save_all
+    save_fig19_snapshot [label]   # alias: snapshot_fig19
+
+EXAMPLE: ZHANG TYPE IV
+    preset default_startup_zhang2023_fig3b_type_IV_zero_coupling
+    set number_modes 256
+    set pump_wavelength_nm 1550.8
+    set fsr_hz 24.95e9
+    set eo_pm_rf_power_dbm 28
+    set eo_pm_vpi_v 7.56
+    set eo_num_pm 4
+    set eo_im_enabled 0
+    apply_reset
+    eo on
+
+AI AUTHORING RULES
+1. Use only vocabulary listed here unless RecipeRunner itself shows newer syntax.
+2. Prefer canonical names; aliases are mainly for compatibility.
+3. Recipe filenames are version-independent; do not encode V15R/V16R in them.
+4. Presentation-only GUI controls are not recipe variables unless explicitly added.
+5. Current parsing is whitespace-token based; use embedded names or paths without
+   spaces for source/file arguments.
+6. Keep this reference synchronized with RecipeRunner whenever syntax changes.
+"""
+
+
 class RecipeRunner:
     """Small non-blocking recipe runner for the live Matplotlib GUI.
 
@@ -716,8 +837,34 @@ class RecipeRunner:
       set slew <DV/ns>
       set power_rate <Pnorm/ns>
 
-    Other commands:
+    Additional set parameters (all user-facing simulation variables):
+      set number_modes <integer>
+      set fsr_hz <Hz>
+      set pump_wavelength_nm <nm>
+      set q <Q>
+      set aeff_um2 <um^2>
+      set n2_m2_per_w <m^2/W>
+      set eta <0..1>
+      set beta2_ps2_per_km <ps^2/km>
+      set pump_source <preset-or-file>
+      set dint <preset-or-file>
       set noise_level <value>
+      set eo_rf_spacing_mu <modes>
+      set eo_pm_rf_power_dbm <dBm>
+      set eo_pm_vpi_v <V>
+      set eo_num_pm <integer>
+      set eo_pm_loss_db <dB>
+      set eo_pm_phase_rad <rad>
+      set eo_im_enabled <0|1>
+      set eo_im_rf_power_dbm <dBm>
+      set eo_im_vpi_v <V>
+      set eo_im_bias <pi-rad>
+      set eo_im_loss_db <dB>
+      set eo_im_phase_rad <rad>
+      set eo_rf_impedance_ohm <ohm>
+
+    Other commands:
+      preset <startup_preset_name>
       noise on|off
       eo on|off
       wait_ns <simulated_ns>
@@ -928,12 +1075,69 @@ class RecipeRunner:
                 self.st.input_field_file = str(val)
                 self.st._load_user_or_default_pump(self.st.input_field_file)
                 self.st._rebuild_input_pump(add_startup_noise=False)
-            elif key in ("dint", "dispersion"):
+            elif key in ("dint", "dispersion", "dint_source"):
                 self.st.dint_file_path = str(val)
+                self.st.beta2_gvd_ps2_per_km = None
                 self.st._load_dispersion_with_fallback()
                 self.st.dint_norm = 2 * self.st.dint / self.st.kappa_avg
+            elif key in ("beta2", "beta2_gvd", "beta2_ps2_per_km", "beta2_gvd_ps2_per_km"):
+                self.st.beta2_gvd_ps2_per_km = float(val)
+                self.st._load_dispersion_with_fallback()
+                self.st.dint_norm = 2 * self.st.dint / self.st.kappa_avg
+            elif key in ("number_modes", "modes", "fsr", "fsr_hz", "pump_wavelength_nm", "wavelength_nm", "lambda_nm", "q", "q_factor", "aeff_um2", "aeff", "n2_m2_per_w", "n2", "eta"):
+                action = self.actions.get("set_system_parameter")
+                if action is None:
+                    raise RuntimeError("System-parameter recipe action is not bound.")
+                gui_key = {
+                    "number_modes": "modes", "modes": "modes",
+                    "fsr": "fsr", "fsr_hz": "fsr",
+                    "pump_wavelength_nm": "lambda", "wavelength_nm": "lambda", "lambda_nm": "lambda",
+                    "q": "q", "q_factor": "q",
+                    "aeff_um2": "aeff", "aeff": "aeff",
+                    "n2_m2_per_w": "n2", "n2": "n2",
+                    "eta": "eta",
+                }[key]
+                action(gui_key, val)
+            elif key in (
+                "eo_rf_spacing_mu", "eo_pm_rf_power_dbm", "eo_pm_vpi_v", "eo_num_pm",
+                "eo_pm_loss_db", "eo_pm_phase_rad", "eo_im_enabled", "eo_im_rf_power_dbm",
+                "eo_im_vpi_v", "eo_im_bias", "eo_im_loss_db", "eo_im_phase_rad",
+                "eo_rf_impedance_ohm"
+            ):
+                eo_key = {
+                    "eo_rf_spacing_mu": "rf_spacing_mu",
+                    "eo_pm_rf_power_dbm": "pm_rf_power_dBm",
+                    "eo_pm_vpi_v": "pm_vpi_V",
+                    "eo_num_pm": "num_pm",
+                    "eo_pm_loss_db": "pm_loss_dB",
+                    "eo_pm_phase_rad": "pm_phase_rad",
+                    "eo_im_enabled": "im_enabled",
+                    "eo_im_rf_power_dbm": "im_rf_power_dBm",
+                    "eo_im_vpi_v": "im_vpi_V",
+                    "eo_im_bias": "im_bias",
+                    "eo_im_loss_db": "im_loss_dB",
+                    "eo_im_phase_rad": "im_phase_rad",
+                    "eo_rf_impedance_ohm": "rf_impedance_ohm",
+                }[key]
+                if eo_key in ("num_pm",):
+                    parsed_val = int(float(val))
+                elif eo_key in ("im_enabled",):
+                    parsed_val = str(val).lower() in ("on", "true", "1", "yes")
+                else:
+                    parsed_val = float(val)
+                self.st.set_eo_config(**{eo_key: parsed_val})
             else:
                 raise ValueError(f"Unknown set parameter: {key}")
+            self.ui_sync_needed = True
+            return
+
+        if cmd in ("preset", "startup_preset", "load_preset"):
+            if not args:
+                raise ValueError("preset requires a startup preset name")
+            action = self.actions.get("load_preset")
+            if action is None:
+                raise RuntimeError("Startup-preset recipe action is not bound.")
+            action(args[0])
             self.ui_sync_needed = True
             return
 
@@ -4994,6 +5198,8 @@ def run_gui():
     # The lambda wrappers keep the recipe runner independent from Matplotlib event objects.
     recipe_runner.bind_actions(
         set_all_noise=set_all_noise,
+        set_system_parameter=lambda key, value: apply_single_system_parameter(key, value),
+        load_preset=lambda name: (ui["txt_startup"].set_val(name), import_startup_preset(None)),
         apply_live=lambda: apply_live_params(None),
         apply_reset=lambda: apply_new_params(None),
         save_plot=lambda: save_visual_plot(),
