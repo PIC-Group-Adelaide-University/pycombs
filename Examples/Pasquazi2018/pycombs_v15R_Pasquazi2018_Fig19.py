@@ -816,6 +816,133 @@ AI AUTHORING RULES
 """
 
 
+# ============================================================
+# EMBEDDED RECIPE LIBRARY
+# Recipes use the same version-independent language as external .txt files.
+# External recipe files remain supported; embedded names make each example
+# runnable as a single self-contained Python file.
+# ============================================================
+EMBEDDED_RECIPES = {
+    'default_recipe_pasquazi2018_fig19_to_Delta12': r'''# Pasquazi et al., Physics Reports 729 (2018), Fig. 19
+# Stable-soliton target near normalized detuning Delta = 12.
+#
+# IMPORTANT:
+#   X = 12 is the normalized pump power.
+#   Delta = 12 is reached by a slow scan from Delta = -4; it is not imposed
+#   as an instantaneous jump after reset.
+
+# Reload the dedicated Fig. 19 preset and its noisy-vacuum initial condition.
+apply_reset
+
+# Hold the paper's normalized pump power.
+set pump_power_norm 12.0
+set pump_power_rate_norm_per_ns 100.0
+
+# Adiabatic scan rate. From -4 to +12 this takes about 53.3 microseconds.
+set detuning_rate_dv_per_ns 0.001
+
+# Absolute target detuning for the stable cavity-soliton profile in Fig. 19(c).
+set detuning_dv 12.0
+
+# Allow enough simulated time to complete the scan and settle at Delta = 12.
+wait_ns 60000\n''',
+    'default_recipe_wilson2019_GaP_simulated_soliton': r'''# Wilson et al. (2020) GaP-parameter simulated-soliton recipe
+# This is an LLE prediction using Wilson-like device parameters, not a
+# reproduction of an experimentally reported soliton state in that paper.
+
+# Begin blue-detuned with the 36 mW CW pump and quantum/noise seed enabled.
+noise on
+set noise_level 1.0
+set pump_power_rate_mw_per_ns 36.0
+set pump_power_mw 36.0
+set detuning_rate_dv_per_ns 1.0
+set detuning_dv -3.0
+apply_reset
+wait_steps 12000
+
+# Use the known Wilson/GaP trajectory: scan continuously to +8 at 1 DV/ns.
+set detuning_dv 8.0
+wait_ns 11.0
+
+# Hold the final operating point and export the resulting paper figures/data.
+set detuning_rate_dv_per_ns 0.0
+noise off
+wait_steps 50000
+save_all\n''',
+    'default_recipe_zhang2023_fig3b_type_I': r'''# Zhang et al. (2023), Fig. 3b, Type I
+# Version-independent PyCOMBS reproduction recipe.
+# Loads the dedicated ideal non-resonant EO-comb preset, then generates the EO comb.
+
+preset default_startup_zhang2023_fig3b_type_I_zero_coupling
+set eo_rf_spacing_mu 1.0
+set eo_pm_rf_power_dbm 28.0
+set eo_pm_vpi_v 7.56
+set eo_num_pm 1
+set eo_pm_loss_db 0.0
+set eo_pm_phase_rad 0.0
+set eo_im_enabled 0
+set eo_rf_impedance_ohm 50.0
+eo on\n''',
+    'default_recipe_zhang2023_fig3b_type_II': r'''# Zhang et al. (2023), Fig. 3b, Type II
+# Version-independent PyCOMBS reproduction recipe.
+# Loads the dedicated ideal non-resonant EO-comb preset, then generates the EO comb.
+
+preset default_startup_zhang2023_fig3b_type_II_zero_coupling
+set eo_rf_spacing_mu 1.0
+set eo_pm_rf_power_dbm 28.0
+set eo_pm_vpi_v 7.56
+set eo_num_pm 2
+set eo_pm_loss_db 0.0
+set eo_pm_phase_rad 0.0
+set eo_im_enabled 0
+set eo_rf_impedance_ohm 50.0
+eo on\n''',
+    'default_recipe_zhang2023_fig3b_type_III': r'''# Zhang et al. (2023), Fig. 3b, Type III
+# Version-independent PyCOMBS reproduction recipe.
+# Loads the dedicated ideal non-resonant EO-comb preset, then generates the EO comb.
+
+preset default_startup_zhang2023_fig3b_type_III_zero_coupling
+set eo_rf_spacing_mu 1.0
+set eo_pm_rf_power_dbm 28.0
+set eo_pm_vpi_v 7.56
+set eo_num_pm 2
+set eo_pm_loss_db 0.0
+set eo_pm_phase_rad 0.0
+set eo_im_enabled 0
+set eo_rf_impedance_ohm 50.0
+eo on\n''',
+    'default_recipe_zhang2023_fig3b_type_IV': r'''# Zhang et al. (2023), Fig. 3b, Type IV
+# Version-independent PyCOMBS reproduction recipe.
+# Loads the dedicated ideal non-resonant EO-comb preset, then generates the EO comb.
+
+preset default_startup_zhang2023_fig3b_type_IV_zero_coupling
+set eo_rf_spacing_mu 1.0
+set eo_pm_rf_power_dbm 28.0
+set eo_pm_vpi_v 7.56
+set eo_num_pm 4
+set eo_pm_loss_db 0.0
+set eo_pm_phase_rad 0.0
+set eo_im_enabled 0
+set eo_rf_impedance_ohm 50.0
+eo on\n''',
+}
+
+EMBEDDED_RECIPE_PRESET_NAMES = tuple(EMBEDDED_RECIPES.keys())
+
+STARTUP_DEFAULT_RECIPES = {
+    'default_startup_pasquazi2018_fig19_exact_quadratic': 'default_recipe_pasquazi2018_fig19_to_Delta12',
+    'default_startup_pasquazi2018_fig19_MgF2_scan': 'default_recipe_pasquazi2018_fig19_to_Delta12',
+    'default_startup_wilson2019_GaP': 'default_recipe_wilson2019_GaP_simulated_soliton',
+    'default_startup_zhang2023_fig3b_type_I_zero_coupling': 'default_recipe_zhang2023_fig3b_type_I',
+    'default_startup_zhang2023_fig3b_type_II_zero_coupling': 'default_recipe_zhang2023_fig3b_type_II',
+    'default_startup_zhang2023_fig3b_type_III_zero_coupling': 'default_recipe_zhang2023_fig3b_type_III',
+    'default_startup_zhang2023_fig3b_type_IV_zero_coupling': 'default_recipe_zhang2023_fig3b_type_IV',
+}
+
+def default_recipe_for_startup(startup_name):
+    return STARTUP_DEFAULT_RECIPES.get((startup_name or '').strip())
+
+
 class RecipeRunner:
     """Small non-blocking recipe runner for the live Matplotlib GUI.
 
@@ -963,33 +1090,47 @@ class RecipeRunner:
         return parsed
 
     def load(self, path):
-        path = (path or "").strip().strip('\"').strip("'")
-        if not path:
-            raise ValueError("Empty recipe filename.")
-        candidates = [path]
-        try:
-            candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), path))
-        except Exception:
-            pass
-        candidates.append(os.path.join(os.getcwd(), path))
-        file_found = next((c for c in candidates if os.path.isfile(c)), None)
-        if file_found is None:
-            raise FileNotFoundError(f"Recipe file not found: {path}")
-        self.steps = self.parse_file(file_found)
+        source = (path or "").strip().strip('\"').strip("'")
+        if not source:
+            raise ValueError("Empty recipe source.")
+
+        # Embedded recipe names are resolved first. External files use the same
+        # parser/execution path and remain fully backward compatible.
+        if source in EMBEDDED_RECIPES:
+            self.steps = self.parse_text(EMBEDDED_RECIPES[source])
+            recipe_display = source
+            recipe_origin = f"embedded:{source}"
+            print(f"[Recipe] Using embedded recipe: {source}")
+        else:
+            candidates = [source]
+            try:
+                candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), source))
+            except Exception:
+                pass
+            candidates.append(os.path.join(os.getcwd(), source))
+            file_found = next((c for c in candidates if os.path.isfile(c)), None)
+            if file_found is None:
+                available = ", ".join(EMBEDDED_RECIPE_PRESET_NAMES)
+                raise FileNotFoundError(
+                    f"Recipe source not found: {source}. "
+                    f"Available embedded recipes: {available}"
+                )
+            self.steps = self.parse_file(file_found)
+            recipe_display = os.path.basename(file_found)
+            recipe_origin = file_found
         self.index = 0
         self.active = True
         self.complete = False
         self.interrupted = False
         self.error = None
-        self.recipe_path = file_found
+        self.recipe_path = recipe_origin
         self.wait_until_ns = None
         self.wait_until_j = None
         self.wait_detuning_target = None
         self.wait_detuning_tolerance = 0.002
         self.ui_sync_needed = True
-        recipe_display = os.path.basename(file_found)
         self.set_status(f"Recipe loaded: {recipe_display} | step 1/{len(self.steps)}")
-        print(f"[Recipe] Loaded {len(self.steps)} steps from: {file_found}")
+        print(f"[Recipe] Loaded {len(self.steps)} steps from: {recipe_origin}")
         self._log(f"Recipe loaded ({len(self.steps)} steps): {recipe_display}")
 
     def interrupt(self, reason="Manual user override", details=None):
@@ -3584,8 +3725,8 @@ def run_gui():
 
     cursor = add_sidebar_heading_top("Recipe", cursor, side="right", right_font=True) - rg
     cursor = add_textbox_top(
-        "recipe", "Recipe File Upload",
-        "pycombs_recipe_pasquazi2018_fig19_to_Delta12.txt", cursor, side="right"
+        "recipe", "Recipe (embedded/file)",
+        "default_recipe_pasquazi2018_fig19_to_Delta12", cursor, side="right"
     ) - rg
     cursor = add_button_top("load_recipe", "Run recipe", cursor, side="right", color="0.88", hover="0.78", fs=7.0) - rg
 
@@ -4665,6 +4806,9 @@ def run_gui():
 
             syncing["flag"] = True
             sync_sidebar_from_state(ui, st)
+            matching_recipe = default_recipe_for_startup(startup_name)
+            if matching_recipe and "txt_recipe" in ui:
+                ui["txt_recipe"].set_val(matching_recipe)
             syncing["flag"] = False
 
             apply_new_params(None)
