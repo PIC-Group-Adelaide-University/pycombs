@@ -15,22 +15,22 @@ No filename editing is required.
 Matching pairs
 --------------
 Type I
-  pycombs_v12_Zhang2023_Fig3b_Type_I.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_I.py
   pycombs_recipe_zhang2023_fig3b_type_I.txt
   1 PM pass -> beta ~ 1.05*pi
 
 Type II
-  pycombs_v12_Zhang2023_Fig3b_Type_II.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_II.py
   pycombs_recipe_zhang2023_fig3b_type_II.txt
   2 PM passes -> beta ~ 2.10*pi
 
 Type III
-  pycombs_v12_Zhang2023_Fig3b_Type_III.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_III.py
   pycombs_recipe_zhang2023_fig3b_type_III.txt
   2 PM passes -> beta ~ 2.10*pi
 
 Type IV
-  pycombs_v12_Zhang2023_Fig3b_Type_IV.py
+  pycombs_v15R_Zhang2023_Fig3b_Type_IV.py
   pycombs_recipe_zhang2023_fig3b_type_IV.txt
   4 PM passes -> beta ~ 4.20*pi
 
@@ -54,14 +54,9 @@ other experimental parasitic effects. In particular, Zhang Types II and III
 are physically different devices even though both correspond to an ideal net
 phase modulation of approximately 2.1*pi in the current Pycombs model.
 
-Changes from the previous package
----------------------------------
-The GUI recipe textbox previously inherited the Wilson example filename.
-That was a leftover from the source example and was incorrect for these
-Zhang-specific files. It is now replaced in every dedicated script by its
-matching Zhang recipe filename.
-
-Each recipe also explicitly performs:
+Run-recipe behavior
+-------------------
+Each recipe explicitly performs:
   noise off -> EO off -> reset -> EO on -> wait -> save all
 so that clicking "Run recipe" produces the intended EO-only example from the
 startup state and saves the result.

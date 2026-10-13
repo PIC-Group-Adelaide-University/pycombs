@@ -1,246 +1,68 @@
-# pycombs — Interactive Lugiato–Lefever Equation Simulator
+# PyCombs V16R Ready
 
----
+PyCombs provides an interactive Python GUI for Kerr microcombs, direct electro-optic comb generation, and avoided mode crossings using two coupled Lugiato–Lefever equations. This release synchronizes all manuscript examples with one engine.
 
-## 1. Description
+## Install and run
 
-pycombs is an interactive Python-based simulator for optical frequency comb generation in Kerr nonlinear microresonators using the Lugiato–Lefever Equation (LLE).
-
-It provides a graphical interface for real-time exploration of comb dynamics, including spectrum, temporal pulse formation, and intracavity power evolution, with parameters accessible in both normalized and physical units.
-
----
-
-## 2. How to Install and Start
-
-### Requirements
-
-* Python 3.10 or higher
-* Python packages:
-
-  * numpy
-  * matplotlib
-  * scipy
-
-Install dependencies:
+Install Python 3.10 or newer, then run these commands from this folder:
 
 ```bash
-pip install numpy matplotlib scipy
-```
-
----
-
-### File setup
-
-Ensure the following structure:
-
-```
-pycombs/
-│
-├── pycombs.py
-├── data/                  (optional)
-│   └── dispersion.csv     (optional external Dint file)
-└── exported_data/         (created automatically)
-```
-
----
-
-### Dispersion file (optional)
-
-The simulator accepts an external integrated dispersion (Dint) file.
-
-Expected format:
-
-```
-Wavelength [um], Frequency [THz], Dint/2pi [GHz]
-```
-
-* If provided, update the file path in the code:
-
-  ```
-  self.dint_file_path = "data/dispersion.csv"
-  ```
-* If not provided, a default dispersion profile is used
-
----
-
-### Plotting / GUI backend
-
-The simulator relies on an interactive matplotlib backend.
-
-Recommended:
-
-* Qt backend (fast and responsive)
-
-If needed, set manually in the script:
-
-```python
-import matplotlib
-matplotlib.use("Qt5Agg")
-```
-
----
-
-### Run the simulator
-
-From the project directory:
-
-```bash
+python -m pip install -r requirements.txt
 python pycombs.py
 ```
 
-This launches the graphical interface.
+A graphical desktop and a Matplotlib GUI backend are required. PyQt5 supplies the Qt backend; the numerical checks can run without a desktop using `MPLBACKEND=Agg`.
 
----
+The general launcher starts the Wilson GaP preset. Each standalone example starts its own preset and selects the matching embedded recipe. Open the script, then click **Run recipe** to run the example sequence. Presets define a configuration; recipes define its evolution and exports.
 
-### Basic usage
+## Manuscript examples
 
-1. Click **Run**
-2. Adjust:
+| Example | Script in `Examples/` | Recipe / target |
+| --- | --- | --- |
+| Wilson GaP | `Wilson2019/pycombs_v16r_Wilson2019_GaP_simulated_soliton.py` | GaP parameter-based Kerr simulation |
+| Pasquazi Fig. 19 | `Pasquazi2018/pycombs_v16r_Pasquazi2018_Fig19.py` | Slow scan towards normalized detuning 12 |
+| Zhang Type I | `Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_I.py` | One ideal phase-modulation pass |
+| Zhang Type II | `Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_II.py` | Two ideal passes |
+| Zhang Type III | `Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_III.py` | Two ideal passes; same spectrum as II in this approximation |
+| Zhang Type IV | `Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_IV.py` | Four ideal passes |
+| Yi Fig. 2c | `Yi2017/pycombs_v16r_Yi2017_Fig2c_i.py` | Four-case AMC recipe; separate startup scripts also supplied for ii, iii, iv |
 
-   * Detuning
-   * Pump power
-3. Observe:
+For example:
 
-   * Optical spectrum
-   * Temporal pulse
-   * Intracavity power
+```bash
+python Examples/Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_II.py
+python Examples/Yi2017/pycombs_v16r_Yi2017_Fig2c_i.py
+```
 
----
+Keep the complete example folder together. AMC presets use `fig2c_benchmark.py` as a companion for pulse initialization and plotting. The AMC recipe runs all four cases independently, writes 2 µs snapshots to a timestamped `yi2017_fig2c_runs/` directory, plots the spectra, and pauses the GUI. Allow several minutes; the GUI can take longer than the headless solver.
 
-## 3. Physical Model and Simulation Settings
+## Physical models and limits
 
-### Governing equation
+The Kerr path uses symmetric second-order split-step Fourier integration of the mean-field LLE. Direct EO combs use analytical phase modulation of the input optical field. The AMC path adds a reciprocally coupled, unpumped auxiliary family, Kerr nonlinearities in both families, and a Raman shock term in the pumped family. The coupled linear half steps use an exact mode-wise 2 × 2 propagator with a constant-drive integral.
 
-The simulator solves the normalized Lugiato–Lefever Equation (LLE) for a driven Kerr nonlinear cavity.
+The AMC approximation omits inter-family cross-phase modulation and nonlinear mixing. It is not a full multimode Maxwell model, a thermal model, or a mode-locked laser simulator. The auxiliary-family export is intracavity power, not an independently calibrated through-port signal.
 
----
+The Yi comparison is qualitative. Pump power, the bare auxiliary-family intercept, and the seeded A field are reconstruction choices. Case iii uses detuning 31 instead of the paper's approximately 29; case i peaks at mode 73 instead of 72; case iv remains transient. The published hysteresis branches at equal detuning have not been recovered. Numerical tests establish consistency for the tested states and intervals, not exact paper reproduction or general long-term stability.
 
-### Numerical method
+The Wilson example uses reconstructed dispersion and Wilson-like device parameters; it does not establish reproduction of an experimentally observed soliton in that paper. The Pasquazi soliton count depends on noise and initial conditions. Zhang II and III represent distinct layouts with the same effective ideal modulation index in this model.
 
-* Split-Step Fourier Method (SSFM)
-* Alternating:
+## Validation and maintenance
 
-  * Linear step in frequency domain
-  * Nonlinear step in time domain
-* Fixed time step
-* FFT-based spectral evolution
+```bash
+MPLBACKEND=Agg python tests/test_release.py
+MPLBACKEND=Agg python tests/test_amc.py
+MPLBACKEND=Agg python tests/test_gui_smoke.py
+MPLBACKEND=Agg python tests/test_fig2c_recipe.py
+```
 
----
+The final command runs the complete four-case benchmark and compares modal powers against the bundled v16e reference snapshots. Reference snapshots in `Examples/Yi2017/results/` remain labelled as prior validation evidence; new simulations receive separate timestamped folders.
 
-### Physical assumptions
+`pycombs_v16r.py` is the canonical source. After editing it, regenerate the standalone examples:
 
-#### Mean-field approximation
+```bash
+python tools/sync_examples.py
+```
 
-* Single averaged intracavity field per round trip
-* No sub-round-trip dynamics
+Only their startup preset differs. `examples.json` records every case, and the release test checks that all copies match their generated source and that external and embedded recipes have identical commands. Earlier code snapshots are retained in `Archive/` and are not the active release.
 
-#### Single spatial mode
-
-* Only one transverse mode family is considered
-* No multimode coupling
-
-#### Periodic boundary conditions
-
-* Field periodic in fast time
-* Discrete mode representation via FFT
-
-#### Dispersion
-
-* Defined through integrated dispersion (Dint)
-* Can be imported or predefined
-* Includes higher-order dispersion implicitly
-* Static in time
-
-#### Nonlinearity
-
-* Instantaneous Kerr (χ³) only
-* No Raman, Brillouin, or higher-order effects
-
-#### Pump
-
-* Continuous-wave coherent input
-* Injected into central mode (μ = 0)
-
-#### Loss and coupling
-
-* Single decay rate κ
-* External coupling defined by η
-* No frequency dependence
-
-#### Noise
-
-* Complex Gaussian noise added to:
-
-  * Pump field
-  * Intracavity field
-* Used to seed comb formation
-
-#### Output field
-
-* Through-port calculated using input–output relation:
-  s_out = s_in − √κ_ex · a
-* Spectrum reported in dBm per mode
-
-#### Thermal and material effects
-
-* No thermal dynamics
-* No thermo-optic effects
-* No parameter drift
-
----
-
-### Simulation capabilities
-
-The simulator can:
-
-* Model Kerr comb initiation and evolution
-* Reproduce modulation instability regimes
-* Generate dissipative Kerr solitons
-* Visualize spectral and temporal dynamics
-* Compare with experimental dispersion data
-
----
-
-### Limitations
-
-The simulator does not:
-
-* Solve full Maxwell equations
-* Include multimode spatial dynamics
-* Include thermal effects or feedback
-* Include Raman or delayed nonlinear response
-* Perform adaptive time stepping
-* Guarantee quantitative agreement without parameter calibration
-
----
-
-### Parameter representation
-
-* All parameters can be expressed in:
-
-  * Normalized units (LLE formalism)
-  * Physical units (GHz, mW, ns)
-
-* Internal conversion ensures consistency between:
-
-  * Detuning
-  * Power
-  * Time scales
-
----
-
-### Typical workflow (recommended)
-
-1. Initialize with moderate pump power
-2. Sweep detuning slowly
-3. Observe:
-
-   * Modulation instability onset
-   * Comb formation
-4. Identify soliton regime:
-
-   * Smooth spectral envelope
-   * Stable temporal pulse
-5. Fine-tune parameters and record results
-
----
+See [CHANGELOG_v16r.md](CHANGELOG_v16r.md) for collaborator review notes. The code is MIT licensed. The Yi reference figure is attributed in the example documentation and is distributed under CC BY 4.0.

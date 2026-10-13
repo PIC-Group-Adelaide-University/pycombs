@@ -49,7 +49,7 @@ modulation index, not this choice of carrier wavelength.
 How to run
 ----------
 For each Type I–IV:
-  1. Run the matching pycombs_v12_Zhang2023_Fig3b_Type_*.py file.
+  1. Run the matching pycombs_v15R_Zhang2023_Fig3b_Type_*.py file.
   2. Load the matching pycombs_recipe_zhang2023_fig3b_type_*.txt file.
   3. Press Run Recipe.
   4. pycombs enables EO modulation and saves the output.

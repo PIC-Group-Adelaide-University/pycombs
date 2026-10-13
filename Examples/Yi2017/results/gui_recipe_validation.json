@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "test": "Headless GUI recipe widgets/callbacks + worker thread; repeated Agg paints suppressed",
+  "steps_per_case": 8,
+  "recipe_completed": true,
+  "paused_on_completion": true,
+  "backend_preserved": true,
+  "default_recipe_selected": true
+}

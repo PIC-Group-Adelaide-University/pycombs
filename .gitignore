@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+yi2017_fig2c_runs/
+exported_data/
+.pytest_cache/

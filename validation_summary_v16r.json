@@ -1,0 +1,12 @@
+{
+  "version": "v16r",
+  "date": "2026-10-13",
+  "launchers_passed": 10,
+  "gui_startup_checks_passed": 10,
+  "amc_solver_checks_passed": 5,
+  "legacy_regression_cases_passed": 6,
+  "full_amc_recipe": "passed",
+  "max_relative_modal_power_error": 0.0,
+  "gui_backend": "Agg; desktop Windows session not tested",
+  "scope": "Numerical regression and implementation consistency, not exact paper reproduction"
+}

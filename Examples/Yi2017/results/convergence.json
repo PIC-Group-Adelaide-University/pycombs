@@ -1,0 +1,13 @@
+{
+  "half_timestep": {
+    "relative_modal_power_L2_A": 2.9399217212391796e-06,
+    "relative_modal_power_L2_B": 4.626955791130859e-05
+  },
+  "double_grid": {
+    "relative_modal_power_L2_A": 8.127990464389428e-14,
+    "relative_modal_power_L2_B": 1.7284040510899234e-12
+  },
+  "duration_us": 0.5,
+  "initial_state": "Settled alpha=31 Raman-seeded high-peak state",
+  "comparison": "Same physical initial modal fields; spectra, not translation-sensitive complex fields."
+}
