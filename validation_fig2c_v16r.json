@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "recipe": "recipe_yi2017_fig2c.txt",
+  "relative_modal_power_L2_errors": {
+    "i": {
+      "A": 0.0,
+      "B": 0.0
+    },
+    "ii": {
+      "A": 0.0,
+      "B": 0.0
+    },
+    "iii": {
+      "A": 0.0,
+      "B": 0.0
+    },
+    "iv": {
+      "A": 0.0,
+      "B": 0.0
+    }
+  },
+  "elapsed_seconds": 236.32592821121216
+}

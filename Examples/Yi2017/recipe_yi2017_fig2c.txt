@@ -1,0 +1,17 @@
+# Yi2017 Fig.2c qualitative benchmark, NOT exact paper reproduction.
+# New Fig2c Recipe package required. Independent cases, B starts empty.
+# 88000 steps at 0.5 RT/step and 22 GHz = 2000 ns per case.
+fig2c_begin
+preset default_startup_yi2017_fig2c_i
+wait_steps 88000
+fig2c_snapshot i
+preset default_startup_yi2017_fig2c_ii
+wait_steps 88000
+fig2c_snapshot ii
+preset default_startup_yi2017_fig2c_iii
+wait_steps 88000
+fig2c_snapshot iii
+preset default_startup_yi2017_fig2c_iv
+wait_steps 88000
+fig2c_snapshot iv
+fig2c_finish

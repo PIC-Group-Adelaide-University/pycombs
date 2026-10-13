@@ -1,0 +1,68 @@
+[Dispersion] Using embedded Dint preset: default_dint_wilson2019_GaP
+Using physical input power: 36000.0 µW (P_in_norm = 10.933)
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_wilson2019_GaP
+[Dispersion] Using embedded Dint preset: default_dint_pasquazi2018_MgF2
+Using default normalized input power: 12.0
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_pasquazi2018_fig19_exact_quadratic
+[Dispersion] Using embedded flat-zero Dint preset.
+Using physical input power: 20000.0 µW (P_in_norm = 580.028)
+[Pump] Using embedded pump preset: default_cw_1550
+[Recipe] Using embedded recipe: default_recipe_zhang2023_fig3b_type_I
+[Recipe] Loaded 10 steps from: embedded:default_recipe_zhang2023_fig3b_type_I
+[Dispersion] Using embedded flat-zero Dint preset.
+[Pump] Using embedded pump preset: default_cw_1550
+Simulation restarted with 256 modes.
+[Startup] Imported startup preset and applied full runtime state: default_startup_zhang2023_fig3b_type_I_zero_coupling
+[EO comb] Enabled: spacing=1 modes, beta_PM=3.3, IM=off, transmission=100.00%
+[Recipe] Complete.
+PASS GUI default_startup_zhang2023_fig3b_type_I_zero_coupling
+[Dispersion] Using embedded flat-zero Dint preset.
+Using physical input power: 20000.0 µW (P_in_norm = 580.028)
+[Pump] Using embedded pump preset: default_cw_1550
+[Recipe] Using embedded recipe: default_recipe_zhang2023_fig3b_type_II
+[Recipe] Loaded 10 steps from: embedded:default_recipe_zhang2023_fig3b_type_II
+[Dispersion] Using embedded flat-zero Dint preset.
+[Pump] Using embedded pump preset: default_cw_1550
+Simulation restarted with 256 modes.
+[Startup] Imported startup preset and applied full runtime state: default_startup_zhang2023_fig3b_type_II_zero_coupling
+[EO comb] Enabled: spacing=1 modes, beta_PM=6.6, IM=off, transmission=100.00%
+[Recipe] Complete.
+PASS GUI default_startup_zhang2023_fig3b_type_II_zero_coupling
+[Dispersion] Using embedded flat-zero Dint preset.
+Using physical input power: 20000.0 µW (P_in_norm = 580.028)
+[Pump] Using embedded pump preset: default_cw_1550
+[Recipe] Using embedded recipe: default_recipe_zhang2023_fig3b_type_III
+[Recipe] Loaded 10 steps from: embedded:default_recipe_zhang2023_fig3b_type_III
+[Dispersion] Using embedded flat-zero Dint preset.
+[Pump] Using embedded pump preset: default_cw_1550
+Simulation restarted with 256 modes.
+[Startup] Imported startup preset and applied full runtime state: default_startup_zhang2023_fig3b_type_III_zero_coupling
+[EO comb] Enabled: spacing=1 modes, beta_PM=6.6, IM=off, transmission=100.00%
+[Recipe] Complete.
+PASS GUI default_startup_zhang2023_fig3b_type_III_zero_coupling
+[Dispersion] Using embedded flat-zero Dint preset.
+Using physical input power: 20000.0 µW (P_in_norm = 580.028)
+[Pump] Using embedded pump preset: default_cw_1550
+[Recipe] Using embedded recipe: default_recipe_zhang2023_fig3b_type_IV
+[Recipe] Loaded 10 steps from: embedded:default_recipe_zhang2023_fig3b_type_IV
+[Dispersion] Using embedded flat-zero Dint preset.
+[Pump] Using embedded pump preset: default_cw_1550
+Simulation restarted with 256 modes.
+[Startup] Imported startup preset and applied full runtime state: default_startup_zhang2023_fig3b_type_IV_zero_coupling
+[EO comb] Enabled: spacing=1 modes, beta_PM=13.2, IM=off, transmission=100.00%
+[Recipe] Complete.
+PASS GUI default_startup_zhang2023_fig3b_type_IV_zero_coupling
+Using default normalized input power: 100.0
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_yi2017_fig2c_i
+Using default normalized input power: 100.0
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_yi2017_fig2c_ii
+Using default normalized input power: 100.0
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_yi2017_fig2c_iii
+Using default normalized input power: 100.0
+[Pump] Using embedded pump preset: default_cw_1550
+PASS GUI default_startup_yi2017_fig2c_iv

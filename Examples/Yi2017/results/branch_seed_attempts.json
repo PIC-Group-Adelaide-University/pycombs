@@ -1,0 +1,19 @@
+{
+  "interpretation": "Both seeds relaxed toward the weak branch; the paper hysteresis has not been reproduced.",
+  "attempts": [
+    {
+      "alpha": 29,
+      "initial_condition": "Seeded spectral centre at mu=-25, with a steady linear B response",
+      "final_time_us": 2,
+      "centroid_excluding_pump_THz": -0.4076984849897365,
+      "B_peak_over_A_comb_power": 0.0054790384334760436
+    },
+    {
+      "alpha": 29,
+      "initial_condition": "Same seed plus an initially strong hybrid-mode tooth",
+      "final_time_us": 2,
+      "centroid_excluding_pump_THz": -0.40787568020589915,
+      "B_peak_over_A_comb_power": 0.005494629031063114
+    }
+  ]
+}

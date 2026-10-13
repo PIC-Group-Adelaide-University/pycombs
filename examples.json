@@ -1,0 +1,62 @@
+[
+  {
+    "group": "Wilson2019",
+    "path": "Examples/Wilson2019/pycombs_v16r_Wilson2019_GaP_simulated_soliton.py",
+    "preset": "default_startup_wilson2019_GaP",
+    "recipe": "pycombs_recipe_wilson2019_GaP_simulated_soliton.txt"
+  },
+  {
+    "group": "Pasquazi2018",
+    "path": "Examples/Pasquazi2018/pycombs_v16r_Pasquazi2018_Fig19.py",
+    "preset": "default_startup_pasquazi2018_fig19_exact_quadratic",
+    "recipe": "pycombs_recipe_pasquazi2018_fig19_to_Delta12.txt"
+  },
+  {
+    "group": "Zhang2023",
+    "path": "Examples/Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_I.py",
+    "preset": "default_startup_zhang2023_fig3b_type_I_zero_coupling",
+    "recipe": "pycombs_recipe_zhang2023_fig3b_type_I.txt"
+  },
+  {
+    "group": "Zhang2023",
+    "path": "Examples/Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_II.py",
+    "preset": "default_startup_zhang2023_fig3b_type_II_zero_coupling",
+    "recipe": "pycombs_recipe_zhang2023_fig3b_type_II.txt"
+  },
+  {
+    "group": "Zhang2023",
+    "path": "Examples/Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_III.py",
+    "preset": "default_startup_zhang2023_fig3b_type_III_zero_coupling",
+    "recipe": "pycombs_recipe_zhang2023_fig3b_type_III.txt"
+  },
+  {
+    "group": "Zhang2023",
+    "path": "Examples/Zhang2023/pycombs_v16r_Zhang2023_Fig3b_Type_IV.py",
+    "preset": "default_startup_zhang2023_fig3b_type_IV_zero_coupling",
+    "recipe": "pycombs_recipe_zhang2023_fig3b_type_IV.txt"
+  },
+  {
+    "group": "Yi2017",
+    "path": "Examples/Yi2017/pycombs_v16r_Yi2017_Fig2c_i.py",
+    "preset": "default_startup_yi2017_fig2c_i",
+    "recipe": "recipe_yi2017_fig2c.txt"
+  },
+  {
+    "group": "Yi2017",
+    "path": "Examples/Yi2017/pycombs_v16r_Yi2017_Fig2c_ii.py",
+    "preset": "default_startup_yi2017_fig2c_ii",
+    "recipe": "recipe_yi2017_fig2c.txt"
+  },
+  {
+    "group": "Yi2017",
+    "path": "Examples/Yi2017/pycombs_v16r_Yi2017_Fig2c_iii.py",
+    "preset": "default_startup_yi2017_fig2c_iii",
+    "recipe": "recipe_yi2017_fig2c.txt"
+  },
+  {
+    "group": "Yi2017",
+    "path": "Examples/Yi2017/pycombs_v16r_Yi2017_Fig2c_iv.py",
+    "preset": "default_startup_yi2017_fig2c_iv",
+    "recipe": "recipe_yi2017_fig2c.txt"
+  }
+]

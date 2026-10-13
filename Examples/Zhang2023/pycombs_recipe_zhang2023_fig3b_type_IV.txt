@@ -1,12 +1,14 @@
-# Zhang et al. (2023), Fig. 3b — Type IV
-# Quadra-pass non-resonant EO phase modulation.
-# Dedicated Type-IV script starts from the matching zero-coupling preset:
-#   RF = 24.95 GHz, RF power = 28 dBm, Vpi = 7.56 V,
-#   four coherent PM passes -> beta ~= 4.20*pi.
+# Zhang et al. (2023), Fig. 3b, Type IV
+# Version-independent PyCOMBS reproduction recipe.
+# Loads the dedicated ideal non-resonant EO-comb preset, then generates the EO comb.
 
-noise off
-eo off
-reset
+preset default_startup_zhang2023_fig3b_type_IV_zero_coupling
+set eo_rf_spacing_mu 1.0
+set eo_pm_rf_power_dbm 28.0
+set eo_pm_vpi_v 7.56
+set eo_num_pm 4
+set eo_pm_loss_db 0.0
+set eo_pm_phase_rad 0.0
+set eo_im_enabled 0
+set eo_rf_impedance_ohm 50.0
 eo on
-wait_steps 10
-save_all

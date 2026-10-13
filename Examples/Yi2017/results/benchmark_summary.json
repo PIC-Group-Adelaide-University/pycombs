@@ -1,0 +1,56 @@
+{
+  "status": "Qualitative benchmark; exact reproduction unverified",
+  "paper": "Yi et al., Nature Communications 8, 14869 (2017), doi:10.1038/ncomms14869",
+  "assumptions": {
+    "P_norm": 100,
+    "lower_hybrid_at_mu72_Hz": -62200000.0,
+    "delta_FSR_Hz": 50900000.0,
+    "initial_field": "Raman-shifted sech + CW in A; B=0"
+  },
+  "cases": {
+    "i": {
+      "centroid_excluding_pump_THz": -0.27147207477998164,
+      "B_peak_mode": 73,
+      "B_peak_over_A_comb_power": 0.0014226498618035773,
+      "B_total_over_A_comb_power": 0.002965595319184218,
+      "A_comb_power_norm": 0.3112730620254761,
+      "finite": true,
+      "alpha": 22.0,
+      "snapshot_time_us": 2.0,
+      "settling_status": "Nearly settled in bundled run; inspect history after reruns"
+    },
+    "ii": {
+      "centroid_excluding_pump_THz": -0.4077705315153934,
+      "B_peak_mode": 72,
+      "B_peak_over_A_comb_power": 0.005480780888034018,
+      "B_total_over_A_comb_power": 0.006643109649407035,
+      "A_comb_power_norm": 0.3313518122636478,
+      "finite": true,
+      "alpha": 29.0,
+      "snapshot_time_us": 2.0,
+      "settling_status": "Nearly settled in bundled run; inspect history after reruns"
+    },
+    "iii": {
+      "centroid_excluding_pump_THz": -0.5489015798587581,
+      "B_peak_mode": 72,
+      "B_peak_over_A_comb_power": 0.06902038827159106,
+      "B_total_over_A_comb_power": 0.06974256816864424,
+      "A_comb_power_norm": 0.31994656562800833,
+      "finite": true,
+      "alpha": 31.0,
+      "snapshot_time_us": 2.0,
+      "settling_status": "Nearly settled in bundled run; inspect history after reruns"
+    },
+    "iv": {
+      "centroid_excluding_pump_THz": -0.6667664809017809,
+      "B_peak_mode": 72,
+      "B_peak_over_A_comb_power": 0.0009227830192360031,
+      "B_total_over_A_comb_power": 0.002625408667657277,
+      "A_comb_power_norm": 0.38506983073399786,
+      "finite": true,
+      "alpha": 46.0,
+      "snapshot_time_us": 2.0,
+      "settling_status": "Changing at last observed blocks"
+    }
+  }
+}

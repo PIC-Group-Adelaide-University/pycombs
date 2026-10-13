@@ -1,0 +1,1 @@
+These are reference spectra and convergence observations from the preceding v16e benchmark. Fresh V16R validation is recorded in the root validation_summary_v16r.json and validation_fig2c_v16r.json; new recipe runs are placed in timestamped directories.

@@ -1,11 +1,10 @@
-# pycombs paper examples
+# Manuscript examples — V16R Ready
 
-This branch collects executable examples corresponding to the illustrative examples described in the pycombs SoftwareX manuscript.
+All current scripts are generated from the root `pycombs_v16r.py` source.
 
-- `Wilson2019/`: GaP Kerr-microcomb example based on Wilson et al.
-- `Pasquazi2018/`: Kerr-microresonator example reproducing the three-soliton state at normalized detuning Delta = 12.
-- `Zhang2023/`: electro-optic-comb example based on Zhang et al., Fig. 3b.
+- [Wilson2019](Wilson2019/README.md)
+- [Pasquazi2018](Pasquazi2018/README.md)
+- [Zhang2023](Zhang2023/README.md)
+- [Yi2017](Yi2017/README.md)
 
-Each example contains a dedicated pycombs script and, where applicable, a recipe file so collaborators can reproduce the manuscript examples without modifying the main branch.
-
-The manuscript also illustrates the arbitrary Gaussian pump-input functionality; that GUI illustration is not a separate literature-reproduction simulation.
+Select a dedicated script and click Run recipe. Historical outputs remain reference evidence; earlier code versions are in the root Archive folder. The Gaussian pump input is an embedded capability, not a separate literature example.
